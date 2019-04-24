@@ -20,17 +20,37 @@ const StyledDiv = styled.div`
 
 const StyledCanvas = styled.canvas`
   background: lightgreen;
-  width: 400px;
-  height: 400px;
   border: 10px ridge darkgoldenrod;
 `;
 
+// set initial target position
+let targetX = 15,
+  targetY = 15;
+
 class SnakeGame extends Component {
+  componentDidMount() {
+    const canv = this.refs["myGameCanvas"];
+    const ctx = canv.getContext("2d");
+
+    this.game(canv, ctx);
+  }
+
+  game(canv, ctx) {
+    // paint target
+    ctx.fillStyle = "red";
+    ctx.fillRect(targetX * 20, targetY * 20, 20 - 2, 20 - 2);
+  }
+
   render() {
     return (
       <StyledDiv>
         <StyledTitle>Guillaume's Snake Game</StyledTitle>
-        <StyledCanvas id="gameCanvas" ref="myGameCanvas" />
+        <StyledCanvas
+          height="400"
+          width="400"
+          id="gameCanvas"
+          ref="myGameCanvas"
+        />
       </StyledDiv>
     );
   }
