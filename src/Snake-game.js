@@ -1,5 +1,11 @@
-import React from "react";
+import React, { Component } from "react";
 import styled from "styled-components";
+
+const StyledTitle = styled.h1`
+  color: lightgray;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  text-shadow: 3px 3px darkslategrey;
+`;
 
 const StyledDiv = styled.div`
   background: grey;
@@ -7,6 +13,7 @@ const StyledDiv = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
@@ -18,10 +25,15 @@ const StyledCanvas = styled.canvas`
   border: 10px ridge darkgoldenrod;
 `;
 
-const SnakeGame = () => (
-  <StyledDiv>
-    <StyledCanvas id="gameCanvas" />
-  </StyledDiv>
-);
+class SnakeGame extends Component {
+  render() {
+    return (
+      <StyledDiv>
+        <StyledTitle>Guillaume's Snake Game</StyledTitle>
+        <StyledCanvas id="gameCanvas" ref="myGameCanvas" />
+      </StyledDiv>
+    );
+  }
+}
 
 export default SnakeGame;
