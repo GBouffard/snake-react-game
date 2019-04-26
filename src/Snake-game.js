@@ -23,22 +23,50 @@ const StyledCanvas = styled.canvas`
   border: 10px ridge darkgoldenrod;
 `;
 
+// Game speed in milliseconds
+const gameSpeed = 250;
+
+const gridSize = 20;
+
+const paintArea = gridSize - 2;
+
+// set initial player position
+let positionX = 10;
+let positionY = 10;
+
+// set initial player move/motion
+const moveX = 1;
+const moveY = 0;
+
+// set empty snake snakeTrail
+const snakeTrail = [];
+
 // set initial target position
-let targetX = 15,
-  targetY = 15;
+let targetX = 15;
+let targetY = 15;
 
 class SnakeGame extends Component {
   componentDidMount() {
     const canv = this.refs["myGameCanvas"];
     const ctx = canv.getContext("2d");
-
-    this.game(canv, ctx);
+    this.interval = setInterval(() => this.game(ctx), gameSpeed);
   }
 
-  game(canv, ctx) {
-    // paint target
+  game(ctx) {
+    // paints the snake
+    ctx.fillStyle = "darkgreen";
+    snakeTrail.forEach(i =>
+      ctx.fillRect(i.x * gridSize, i.y * gridSize, paintArea, paintArea)
+    );
+
+    // sets a new position x, y and updates the snakeTrail
+    const x = (positionX += moveX);
+    const y = (positionY += moveY);
+    snakeTrail.push({ x, y });
+
+    // paints the target
     ctx.fillStyle = "red";
-    ctx.fillRect(targetX * 20, targetY * 20, 20 - 2, 20 - 2);
+    ctx.fillRect(targetX * gridSize, targetY * gridSize, paintArea, paintArea);
   }
 
   render() {
