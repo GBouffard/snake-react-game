@@ -19,7 +19,6 @@ const StyledDiv = styled.div`
 `;
 
 const StyledCanvas = styled.canvas`
-  background: lightgreen;
   border: 10px ridge darkgoldenrod;
 `;
 
@@ -38,8 +37,9 @@ let positionY = 10;
 const moveX = 1;
 const moveY = 0;
 
-// set empty snake snakeTrail
-const snakeTrail = [];
+// set snake snakeTrail and initial length
+let snakeTrail = [];
+let snakeLength = 5;
 
 // set initial target position
 let targetX = 15;
@@ -67,6 +67,11 @@ class SnakeGame extends Component {
     const x = (positionX += moveX);
     const y = (positionY += moveY);
     snakeTrail.push({ x, y });
+
+    // removes irrelevant coordinates
+    if (snakeTrail.length > snakeLength) {
+      snakeTrail = snakeTrail.slice(snakeTrail.length - snakeLength);
+    }
 
     // paints the target
     ctx.fillStyle = "red";
