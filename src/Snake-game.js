@@ -25,19 +25,20 @@ const StyledCanvas = styled.canvas`
 // Game speed in milliseconds
 const gameSpeed = 250;
 
+// Game area dimensions: 20 x 20
 const gridSize = 20;
-
+const tileCount = 20;
 const paintArea = gridSize - 2;
 
 // set initial player position
-let positionX = 10;
-let positionY = 10;
+let x = 10;
+let y = 10;
 
 // set initial player move/motion
 const moveX = 1;
 const moveY = 0;
 
-// set snake snakeTrail and initial length
+// set initial snake trail and snake length
 let snakeTrail = [];
 let snakeLength = 5;
 
@@ -63,12 +64,20 @@ class SnakeGame extends Component {
       ctx.fillRect(i.x * gridSize, i.y * gridSize, paintArea, paintArea)
     );
 
-    // sets a new position x, y and updates the snakeTrail
-    const x = (positionX += moveX);
-    const y = (positionY += moveY);
+    // sets the new x and y positions
+    x += moveX;
+    y += moveY;
+
+    // redefine x & y  if the snake exits the game area
+    if (x < 0) x = tileCount - 1;
+    if (x > tileCount - 1) x = 0;
+    if (y < 0) y = tileCount - 1;
+    if (y > tileCount - 1) y = 0;
+
+    // updates the snakeTrail with the new coordinate
     snakeTrail.push({ x, y });
 
-    // removes irrelevant coordinates
+    // removes irrelevant coordinates to keep the trail length equal to the snake length
     if (snakeTrail.length > snakeLength) {
       snakeTrail = snakeTrail.slice(snakeTrail.length - snakeLength);
     }
