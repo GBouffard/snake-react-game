@@ -49,10 +49,14 @@ class SnakeGame extends Component {
   componentDidMount() {
     const canv = this.refs["myGameCanvas"];
     const ctx = canv.getContext("2d");
-    this.interval = setInterval(() => this.game(ctx), gameSpeed);
+    this.interval = setInterval(() => this.game(canv, ctx), gameSpeed);
   }
 
-  game(ctx) {
+  game(canv, ctx) {
+    // paints the canvas background
+    ctx.fillStyle = "lightgreen";
+    ctx.fillRect(0, 0, canv.width, canv.height);
+
     // paints the snake
     ctx.fillStyle = "darkgreen";
     snakeTrail.forEach(i =>
