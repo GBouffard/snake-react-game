@@ -34,9 +34,8 @@ const paintArea = gridSize - 2;
 let x = 10;
 let y = 10;
 
-// set initial player move/motion
-const moveX = 1;
-const moveY = 0;
+// set the initial moving direction as [x, y]
+let moveDirection = [1, 0];
 
 // set initial snake trail and snake length
 let snakeTrail = [];
@@ -46,11 +45,31 @@ let snakeLength = 5;
 let targetX = 15;
 let targetY = 15;
 
+const isLeft = e => e.keyCode === 37;
+const isUp = e => e.keyCode === 38;
+const isRight = e => e.keyCode === 39;
+const isDown = e => e.keyCode === 40;
+
 class SnakeGame extends Component {
   componentDidMount() {
     const canv = this.refs["myGameCanvas"];
     const ctx = canv.getContext("2d");
+    document.addEventListener("keydown", this.onKeyDown);
     this.interval = setInterval(() => this.game(canv, ctx), gameSpeed);
+  }
+
+  onKeyDown(e) {
+    e.preventDefault();
+
+    if (isLeft(e)) {
+      moveDirection = [-1, 0];
+    } else if (isUp(e)) {
+      moveDirection = [0, -1];
+    } else if (isRight(e)) {
+      moveDirection = [1, 0];
+    } else if (isDown(e)) {
+      moveDirection = [0, 1];
+    }
   }
 
   game(canv, ctx) {
@@ -65,10 +84,10 @@ class SnakeGame extends Component {
     );
 
     // sets the new x and y positions
-    x += moveX;
-    y += moveY;
+    x += moveDirection[0];
+    y += moveDirection[1];
 
-    // redefine x & y  if the snake exits the game area
+    // redefine x & y if the snake exits the game area
     if (x < 0) x = tileCount - 1;
     if (x > tileCount - 1) x = 0;
     if (y < 0) y = tileCount - 1;
