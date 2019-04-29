@@ -101,6 +101,13 @@ class SnakeGame extends Component {
       snakeTrail = snakeTrail.slice(snakeTrail.length - snakeLength);
     }
 
+    // sets a new target random position and grow the snake on a game win
+    if (targetX === x && targetY === y) {
+      snakeLength++;
+      targetX = Math.floor(Math.random() * tileCount);
+      targetY = Math.floor(Math.random() * tileCount);
+    }
+
     // paints the target
     ctx.fillStyle = "red";
     ctx.fillRect(targetX * gridSize, targetY * gridSize, paintArea, paintArea);
