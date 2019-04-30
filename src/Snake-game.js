@@ -59,11 +59,21 @@ const isLost = (i, x, y) => i.x === x && i.y === y;
 const isWon = (targetX, x, targetY, y) => targetX === x && targetY === y;
 
 class SnakeGame extends Component {
+  componentWillMount() {
+    clearInterval(this.interval);
+  }
+
   componentDidMount() {
     const canv = this.refs["myGameCanvas"];
     const ctx = canv.getContext("2d");
     document.addEventListener("keydown", this.onKeyDown);
     this.interval = setInterval(() => this.game(canv, ctx), gameSpeed);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener("keydown", this.onKeyDown);
+    clearInterval(this.interval);
+    resetGame();
   }
 
   onKeyDown(e) {
