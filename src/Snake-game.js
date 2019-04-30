@@ -77,15 +77,26 @@ class SnakeGame extends Component {
     ctx.fillStyle = "lightgreen";
     ctx.fillRect(0, 0, canv.width, canv.height);
 
-    // paints the snake
-    ctx.fillStyle = "darkgreen";
-    snakeTrail.forEach(i =>
-      ctx.fillRect(i.x * gridSize, i.y * gridSize, paintArea, paintArea)
-    );
-
     // sets the new x and y positions
     x += moveDirection[0];
     y += moveDirection[1];
+
+    // paints the snake
+    ctx.fillStyle = "darkgreen";
+    snakeTrail.forEach(i => {
+      ctx.fillRect(i.x * gridSize, i.y * gridSize, paintArea, paintArea);
+
+      // resets the whole game if the new x and y position meets a snaketrail position
+      if (i.x === x && i.y === y) {
+        moveDirection = [1, 0];
+        x = 10;
+        y = 10;
+        snakeTrail = [];
+        snakeLength = 5;
+        targetX = Math.floor(Math.random() * tileCount);
+        targetY = Math.floor(Math.random() * tileCount);
+      }
+    });
 
     // redefine x & y if the snake exits the game area
     if (x < 0) x = tileCount - 1;
