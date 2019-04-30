@@ -79,13 +79,14 @@ class SnakeGame extends Component {
   onKeyDown(e) {
     e.preventDefault();
 
-    if (isLeft(e)) {
+    // logic also prevents a move in an opposite not allowed direction
+    if (isLeft(e) && velocity[0] !== 1 && velocity[1] !== 0) {
       velocity = [-1, 0];
-    } else if (isUp(e)) {
+    } else if (isUp(e) && velocity[0] !== 0 && velocity[1] !== 1) {
       velocity = [0, -1];
-    } else if (isRight(e)) {
+    } else if (isRight(e) && velocity[0] !== -1 && velocity[1] !== 0) {
       velocity = [1, 0];
-    } else if (isDown(e)) {
+    } else if (isDown(e) && velocity[0] !== 0 && velocity[1] !== -1) {
       velocity = [0, 1];
     }
   }
