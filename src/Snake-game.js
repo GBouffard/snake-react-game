@@ -22,33 +22,41 @@ const StyledCanvas = styled.canvas`
   border: 10px ridge darkgoldenrod;
 `;
 
-// Game speed in milliseconds
-const gameSpeed = 125;
-
-// Game area dimensions: 20 x 20
+// Game dimensions and speed
 const gridSize = 20;
 const tileCount = 20;
 const paintArea = gridSize - 2;
+const gameSpeed = 125;
 
-// set initial player position
-let x = 10;
-let y = 10;
+// initial player position
+let x;
+let y;
+// initial snake velocity as [x, y]
+let velocity;
+// initial snake trail and snake length
+let snakeTrail;
+let snakeLength;
+// initial target position
+let targetX;
+let targetY;
 
-// set the initial moving direction as [x, y]
-let moveDirection = [1, 0];
-
-// set initial snake trail and snake length
-let snakeTrail = [];
-let snakeLength = 5;
-
-// set initial target position
-let targetX = 15;
-let targetY = 15;
+const resetGame = () => {
+  velocity = [1, 0];
+  x = 10;
+  y = 10;
+  snakeTrail = [];
+  snakeLength = 5;
+  targetX = Math.floor(Math.random() * tileCount);
+  targetY = Math.floor(Math.random() * tileCount);
+};
+resetGame();
 
 const isLeft = e => e.keyCode === 37;
 const isUp = e => e.keyCode === 38;
 const isRight = e => e.keyCode === 39;
 const isDown = e => e.keyCode === 40;
+const isLost = (i, x, y) => i.x === x && i.y === y;
+const isWon = (targetX, x, targetY, y) => targetX === x && targetY === y;
 
 class SnakeGame extends Component {
   componentDidMount() {
@@ -62,24 +70,14 @@ class SnakeGame extends Component {
     e.preventDefault();
 
     if (isLeft(e)) {
-      moveDirection = [-1, 0];
+      velocity = [-1, 0];
     } else if (isUp(e)) {
-      moveDirection = [0, -1];
+      velocity = [0, -1];
     } else if (isRight(e)) {
-      moveDirection = [1, 0];
+      velocity = [1, 0];
     } else if (isDown(e)) {
-      moveDirection = [0, 1];
+      velocity = [0, 1];
     }
-  }
-
-  resetGame() {
-    moveDirection = [1, 0];
-    x = 10;
-    y = 10;
-    snakeTrail = [];
-    snakeLength = 5;
-    targetX = Math.floor(Math.random() * tileCount);
-    targetY = Math.floor(Math.random() * tileCount);
   }
 
   game(canv, ctx) {
@@ -88,17 +86,16 @@ class SnakeGame extends Component {
     ctx.fillRect(0, 0, canv.width, canv.height);
 
     // sets the new x and y positions
-    x += moveDirection[0];
-    y += moveDirection[1];
+    x += velocity[0];
+    y += velocity[1];
 
     // paints the snake
     ctx.fillStyle = "darkgreen";
     snakeTrail.forEach(i => {
       ctx.fillRect(i.x * gridSize, i.y * gridSize, paintArea, paintArea);
 
-      // resets the whole game if the new x and y position meets a snaketrail position
-      if (i.x === x && i.y === y) {
-        this.resetGame();
+      if (isLost(i, x, y)) {
+        resetGame();
       }
     });
 
@@ -116,8 +113,7 @@ class SnakeGame extends Component {
       snakeTrail = snakeTrail.slice(snakeTrail.length - snakeLength);
     }
 
-    // sets a new target random position and grow the snake on a game win
-    if (targetX === x && targetY === y) {
+    if (isWon(targetX, x, targetY, y)) {
       snakeLength++;
       targetX = Math.floor(Math.random() * tileCount);
       targetY = Math.floor(Math.random() * tileCount);
