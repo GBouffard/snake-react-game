@@ -40,6 +40,11 @@ let snakeLength;
 let targetX;
 let targetY;
 
+const nokiaColors = {
+  light: "#AEC108",
+  dark: "#5C5003"
+};
+
 const resetGame = () => {
   velocity = [1, 0];
   x = 10;
@@ -79,7 +84,7 @@ class SnakeGame extends Component {
   onKeyDown(e) {
     e.preventDefault();
 
-    // logic also prevents a move in an opposite not allowed direction
+    // checks for keys but also prevents a move in an opposite direction
     if (isLeft(e) && velocity[0] !== 1 && velocity[1] !== 0) {
       velocity = [-1, 0];
     } else if (isUp(e) && velocity[0] !== 0 && velocity[1] !== 1) {
@@ -93,7 +98,7 @@ class SnakeGame extends Component {
 
   game(canv, ctx) {
     // paints the canvas background
-    ctx.fillStyle = "lightgreen";
+    ctx.fillStyle = nokiaColors.light;
     ctx.fillRect(0, 0, canv.width, canv.height);
 
     // sets the new x and y positions
@@ -101,7 +106,7 @@ class SnakeGame extends Component {
     y += velocity[1];
 
     // paints the snake
-    ctx.fillStyle = "darkgreen";
+    ctx.fillStyle = nokiaColors.dark;
     snakeTrail.forEach(i => {
       ctx.fillRect(i.x * gridSize, i.y * gridSize, paintArea, paintArea);
 
@@ -131,8 +136,10 @@ class SnakeGame extends Component {
     }
 
     // paints the target
-    ctx.fillStyle = "red";
+    ctx.fillStyle = nokiaColors.dark;
     ctx.fillRect(targetX * gridSize, targetY * gridSize, paintArea, paintArea);
+    ctx.fillStyle = nokiaColors.light;
+    ctx.fillRect(targetX * gridSize + 4, targetY * gridSize + 4, 10, 10);
   }
 
   render() {
