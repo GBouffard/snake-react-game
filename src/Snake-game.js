@@ -23,7 +23,7 @@ const StyledCanvas = styled.canvas`
 `;
 
 // Game speed in milliseconds
-const gameSpeed = 250;
+const gameSpeed = 125;
 
 // Game area dimensions: 20 x 20
 const gridSize = 20;
@@ -72,6 +72,16 @@ class SnakeGame extends Component {
     }
   }
 
+  resetGame() {
+    moveDirection = [1, 0];
+    x = 10;
+    y = 10;
+    snakeTrail = [];
+    snakeLength = 5;
+    targetX = Math.floor(Math.random() * tileCount);
+    targetY = Math.floor(Math.random() * tileCount);
+  }
+
   game(canv, ctx) {
     // paints the canvas background
     ctx.fillStyle = "lightgreen";
@@ -88,13 +98,7 @@ class SnakeGame extends Component {
 
       // resets the whole game if the new x and y position meets a snaketrail position
       if (i.x === x && i.y === y) {
-        moveDirection = [1, 0];
-        x = 10;
-        y = 10;
-        snakeTrail = [];
-        snakeLength = 5;
-        targetX = Math.floor(Math.random() * tileCount);
-        targetY = Math.floor(Math.random() * tileCount);
+        this.resetGame();
       }
     });
 
