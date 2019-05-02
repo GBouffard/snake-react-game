@@ -1,10 +1,14 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
-const StyledTitle = styled.h1`
-  color: lightgray;
-  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  text-shadow: 3px 3px darkslategrey;
+const phoneColors = {
+  light: '#AEC108',
+  dark: '#5C5003'
+}
+
+const StyledImage = styled.img`
+  position: absolute;
+  height: 100%;
 `
 
 const StyledDiv = styled.div`
@@ -14,19 +18,23 @@ const StyledDiv = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 `
 
 const StyledCanvas = styled.canvas`
-  border: 10px ridge darkgoldenrod;
+  border: 2px ridge ${phoneColors.dark};
+  z-index: 100;
+  position: absolute;
+  top: 28%;
 `
 
 // Game dimensions and speed
-const gridSize = 20
+const cellSizeX = 8
+const cellSizeY = 6
 const tileCount = 20
-const paintArea = gridSize - 2
-const gameSpeed = 125
+const paintAreaX = cellSizeX - 1
+const paintAreaY = cellSizeY - 1
+const gameSpeed = 100
 
 // initial player position
 let x
@@ -39,11 +47,6 @@ let snakeLength
 // initial target position
 let targetX
 let targetY
-
-const nokiaColors = {
-  light: '#AEC108',
-  dark: '#5C5003'
-}
 
 const resetGame = () => {
   velocity = [1, 0]
@@ -98,7 +101,7 @@ class SnakeGame extends Component {
 
   game (canv, ctx) {
     // paints the canvas background
-    ctx.fillStyle = nokiaColors.light
+    ctx.fillStyle = phoneColors.light
     ctx.fillRect(0, 0, canv.width, canv.height)
 
     // sets the new x and y positions
@@ -106,9 +109,9 @@ class SnakeGame extends Component {
     y += velocity[1]
 
     // paints the snake
-    ctx.fillStyle = nokiaColors.dark
+    ctx.fillStyle = phoneColors.dark
     snakeTrail.forEach(i => {
-      ctx.fillRect(i.x * gridSize, i.y * gridSize, paintArea, paintArea)
+      ctx.fillRect(i.x * cellSizeX, i.y * cellSizeY, paintAreaX, paintAreaY)
 
       if (isLost(i, x, y)) {
         resetGame()
@@ -136,19 +139,24 @@ class SnakeGame extends Component {
     }
 
     // paints the target
-    ctx.fillStyle = nokiaColors.dark
-    ctx.fillRect(targetX * gridSize, targetY * gridSize, paintArea, paintArea)
-    ctx.fillStyle = nokiaColors.light
-    ctx.fillRect(targetX * gridSize + 4, targetY * gridSize + 4, 10, 10)
+    ctx.fillStyle = phoneColors.dark
+    ctx.fillRect(
+      targetX * cellSizeX,
+      targetY * cellSizeY,
+      paintAreaX,
+      paintAreaY
+    )
+    ctx.fillStyle = phoneColors.light
+    ctx.fillRect(targetX * cellSizeX + 2, targetY * cellSizeY + 2, 3, 1)
   }
 
   render () {
     return (
       <StyledDiv>
-        <StyledTitle>Guillaume's Snake Game</StyledTitle>
+        <StyledImage src='./nostalgic_phone.png' alt='nostalgic_phone' />
         <StyledCanvas
-          height='400'
-          width='400'
+          height='120'
+          width='160'
           id='gameCanvas'
           ref='myGameCanvas'
         />
