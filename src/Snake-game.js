@@ -1,17 +1,20 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 
+import { isLeft, isUp, isRight, isDown, isLost, isWon } from './helper'
+
 const phoneColors = {
   light: '#AEC108',
   dark: '#5C5003'
 }
 
-const StyledImage = styled.img`
+const PhoneImage = styled.img`
+  z-index: 2;
   position: absolute;
   height: 100%;
 `
 
-const StyledDiv = styled.div`
+const Container = styled.div`
   background: grey;
   position: absolute;
   width: 100%;
@@ -21,12 +24,20 @@ const StyledDiv = styled.div`
   align-items: center;
 `
 
-const StyledCanvas = styled.canvas`
+const GameArea = styled.canvas`
   position: absolute;
   z-index: 100;
   top: 28%;
   height: 17.5%;
   border: 2px ridge ${phoneColors.dark};
+`
+
+const PhoneBackscreen = styled.canvas`
+  position: relative;
+  z-index: 1;
+  top: 25%;
+  background: ${phoneColors.light};
+  height: 24%;
 `
 
 // Game dimensions and speed
@@ -59,13 +70,6 @@ const resetGame = () => {
   targetY = Math.floor(Math.random() * tileCount)
 }
 resetGame()
-
-const isLeft = e => e.keyCode === 37
-const isUp = e => e.keyCode === 38
-const isRight = e => e.keyCode === 39
-const isDown = e => e.keyCode === 40
-const isLost = (i, x, y) => i.x === x && i.y === y
-const isWon = (targetX, x, targetY, y) => targetX === x && targetY === y
 
 class SnakeGame extends Component {
   componentWillMount () {
@@ -153,15 +157,11 @@ class SnakeGame extends Component {
 
   render () {
     return (
-      <StyledDiv>
-        <StyledImage src='./nostalgic_phone.png' alt='nostalgic_phone' />
-        <StyledCanvas
-          height='120'
-          width='160'
-          id='gameCanvas'
-          ref='myGameCanvas'
-        />
-      </StyledDiv>
+      <Container>
+        <PhoneImage src='./nostalgic_phone.png' alt='nostalgic_phone' />
+        <GameArea height='120' width='160' id='gameCanvas' ref='myGameCanvas' />
+        <PhoneBackscreen height='150' width='190' />
+      </Container>
     )
   }
 }
