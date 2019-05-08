@@ -1,44 +1,13 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
 
+import {
+  phoneColors,
+  Container,
+  PhoneImage,
+  GameArea,
+  PhoneBackscreen
+} from './styling'
 import { isLeft, isUp, isRight, isDown, isLost, isWon } from './helper'
-
-const phoneColors = {
-  light: '#AEC108',
-  dark: '#5C5003'
-}
-
-const PhoneImage = styled.img`
-  z-index: 2;
-  position: absolute;
-  height: 100%;
-`
-
-const Container = styled.div`
-  background: grey;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`
-
-const GameArea = styled.canvas`
-  position: absolute;
-  z-index: 100;
-  top: 28%;
-  height: 17.5%;
-  border: 2px ridge ${phoneColors.dark};
-`
-
-const PhoneBackscreen = styled.canvas`
-  position: relative;
-  z-index: 1;
-  top: 25%;
-  background: ${phoneColors.light};
-  height: 24%;
-`
 
 // Game dimensions and speed
 const cellSizeX = 8
