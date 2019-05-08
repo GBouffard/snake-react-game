@@ -22,10 +22,11 @@ const StyledDiv = styled.div`
 `
 
 const StyledCanvas = styled.canvas`
-  border: 2px ridge ${phoneColors.dark};
-  z-index: 100;
   position: absolute;
+  z-index: 100;
   top: 28%;
+  height: 17.5%;
+  border: 2px ridge ${phoneColors.dark};
 `
 
 // Game dimensions and speed
