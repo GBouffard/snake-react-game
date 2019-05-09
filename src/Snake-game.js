@@ -10,6 +10,8 @@ import {
 } from './styling';
 import { isLeft, isUp, isRight, isDown, isLost, isWon } from './helper';
 
+const baseUrl = process.env.PUBLIC_URL;
+
 // Game dimensions and speed
 const cellSizeX = 8;
 const cellSizeY = 6;
@@ -128,7 +130,10 @@ class SnakeGame extends Component {
   render () {
     return (
       <Container>
-        <PhoneImage src='./nostalgic_phone.png' alt='nostalgic_phone' />
+        <PhoneImage
+          src={`${baseUrl}/nostalgic_phone.png`}
+          alt='nostalgic_phone'
+        />
         <GameArea height='120' width='160' id='gameCanvas' ref='myGameCanvas' />
         <PhoneBackscreen height='150' width='190' />
         <Buttons onKeyDown={this.onKeyDown} />
