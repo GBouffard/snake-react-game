@@ -1,8 +1,7 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 
 const StyledButton = styled.button`
-  position: absolute;
   z-index: 500;
   background-color: lightgrey;
   color: black;
@@ -11,10 +10,8 @@ const StyledButton = styled.button`
   border-radius: 50%;
   outline: none;
   font-size: 4vh;
-  top: 87.5%;
   font-weight: bold;
-  padding: 0 3.5vh 1.5vh;
-  height: 5%;
+  margin: 1.25vh 1vh 0;
   cursor: pointer;
 
   &:active {
@@ -25,10 +22,10 @@ const StyledButton = styled.button`
       0 0 1vh yellow;
     transform: translateY(0.6vh);
   }
-`
+`;
 
 const Button = ({ number, onClick }) => (
   <StyledButton onClick={onClick}>{number}</StyledButton>
-)
+);
 
-export default Button
+export default Button;
