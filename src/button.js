@@ -1,5 +1,7 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from 'react';
+import styled from 'styled-components';
+
+import { isClickable } from './helper';
 
 const StyledButton = styled.button`
   z-index: 500;
@@ -12,20 +14,23 @@ const StyledButton = styled.button`
   font-size: 4vh;
   font-weight: bold;
   margin: 1.25vh 1vh 0;
-  cursor: ${props => (props.onClick ? 'pointer' : 'default')};
+  cursor: ${props => (isClickable(props.children) ? 'pointer' : 'default')};
 
   &:active {
     background-color: #bababa;
-    color: lightgoldenrodyellow;
+    color: ${props =>
+    isClickable(props.children) ? 'lightgoldenrodyellow' : 'black'};
     box-shadow: 0 0.2vh #050505;
-    text-shadow: 0.2vh 0.2vh 0.4vh grey, 0 0 5vh lightgoldenrodyellow,
-      0 0 1vh yellow;
+    text-shadow: ${props =>
+    isClickable(props.children)
+      ? '0.2vh 0.2vh 0.4vh grey, 0 0 5vh lightgoldenrodyellow, 0 0 1vh yellow'
+      : 'null'};
     transform: translateY(0.6vh);
   }
-`
+`;
 
 const Button = ({ number, onClick }) => (
   <StyledButton onClick={onClick}>{number}</StyledButton>
-)
+);
 
-export default Button
+export default Button;
