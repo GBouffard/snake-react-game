@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react'
+import styled from 'styled-components'
 
 const StyledButton = styled.button`
   z-index: 500;
@@ -12,7 +12,7 @@ const StyledButton = styled.button`
   font-size: 4vh;
   font-weight: bold;
   margin: 1.25vh 1vh 0;
-  cursor: pointer;
+  cursor: ${props => (props.onClick ? 'pointer' : 'default')};
 
   &:active {
     background-color: #bababa;
@@ -22,10 +22,10 @@ const StyledButton = styled.button`
       0 0 1vh yellow;
     transform: translateY(0.6vh);
   }
-`;
+`
 
 const Button = ({ number, onClick }) => (
   <StyledButton onClick={onClick}>{number}</StyledButton>
-);
+)
 
-export default Button;
+export default Button
