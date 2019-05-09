@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 
+import Button from './button'
 import {
   phoneColors,
   Container,
@@ -130,6 +131,7 @@ class SnakeGame extends Component {
         <PhoneImage src='./nostalgic_phone.png' alt='nostalgic_phone' />
         <GameArea height='120' width='160' id='gameCanvas' ref='myGameCanvas' />
         <PhoneBackscreen height='150' width='190' />
+        <Button number='0' onClick={() => {}} />
       </Container>
     )
   }

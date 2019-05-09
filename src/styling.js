@@ -12,7 +12,7 @@ const PhoneImage = styled.img`
 `
 
 const Container = styled.div`
-  background: grey;
+  background: linear-gradient(to right, teal, white, teal);
   position: absolute;
   width: 100%;
   height: 100%;
