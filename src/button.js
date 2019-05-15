@@ -1,7 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from 'react'
+import styled from 'styled-components'
 
-import { isClickable } from './helper';
+import { isClickable } from './helper'
 
 const StyledButton = styled.button`
   z-index: 500;
@@ -27,10 +27,10 @@ const StyledButton = styled.button`
       : 'null'};
     transform: translateY(0.6vh);
   }
-`;
+`
 
 const Button = ({ number, onClick }) => (
   <StyledButton onClick={onClick}>{number}</StyledButton>
-);
+)
 
-export default Button;
+export default Button
