@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react'
 import styled from 'styled-components'
+import isTouch from 'is-touch-device'
 
 const message = `Snake is a video game where the player maneuvers a snake which grows in length each time it reaches food. The goal is to make the snake as large as possible before the game ends which happens when the snake moves into itself. The first version originated in 1976 and the one below (from 1998) came as a package on old mobile phone.
 
@@ -36,7 +37,7 @@ const StyledMessageContainer = styled.div`
   top: 15vw;
   width: 92vw;
   height: 75vh;
-  z-index: 10;
+  z-index: 999;
 
   &&::after {
     content: "";
@@ -67,6 +68,12 @@ const StyledMessage = styled.div`
 const Tooltip = () => {
   const [shouldShow, updateShouldShow] = useState(false)
 
+  const actionsProps = {
+    onMouseOver: () => (isTouch() ? null : updateShouldShow(true)),
+    onMouseLeave: () => (isTouch() ? null : updateShouldShow(false)),
+    onClick: () => (isTouch() ? updateShouldShow(!shouldShow) : null)
+  }
+
   return (
     <Fragment>
       <StyledTrigger>
@@ -75,19 +82,14 @@ const Tooltip = () => {
           <stop offset='95%' stop-color='#333333' />
         </radialGradient>
 
-        <StyledCircle
-          fill="url('#circleGradient')"
-          onMouseOver={() => updateShouldShow(true)}
-          onMouseLeave={() => updateShouldShow(false)}
-        />
+        <StyledCircle fill="url('#circleGradient')" {...actionsProps} />
 
         <StyledText
           x='50%'
           y='55%'
           dominantBaseline='middle'
           textAnchor='middle'
-          onMouseOver={() => updateShouldShow(true)}
-          onMouseLeave={() => updateShouldShow(false)}
+          {...actionsProps}
         >
           ?
         </StyledText>
