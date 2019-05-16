@@ -20,6 +20,7 @@ const StyledButton = styled.button`
     background-color: #bababa;
     color: ${props =>
     isClickable(props.children) ? 'lightgoldenrodyellow' : 'black'};
+    -webkit-tap-highlight-color: transparent;
     box-shadow: 0 0.2vh #050505;
     text-shadow: ${props =>
     isClickable(props.children)
