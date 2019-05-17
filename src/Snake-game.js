@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 
+import ScoreDisplay from './score-display'
 import Buttons from './buttons'
 import Tooltip from './tooltip'
 import {
@@ -32,6 +34,7 @@ let snakeLength
 // initial target position
 let targetX
 let targetY
+let score
 
 const resetGame = () => {
   velocity = [1, 0]
@@ -41,8 +44,15 @@ const resetGame = () => {
   snakeLength = 5
   targetX = Math.floor(Math.random() * tileCount)
   targetY = Math.floor(Math.random() * tileCount)
+  score = 0
 }
 resetGame()
+
+const renderScoreDisplay = score =>
+  ReactDOM.render(
+    <ScoreDisplay score={score} />,
+    document.getElementById('score-display')
+  )
 
 class SnakeGame extends Component {
   componentWillMount () {
@@ -54,6 +64,7 @@ class SnakeGame extends Component {
     const ctx = canv.getContext('2d')
     document.addEventListener('keydown', this.onKeyDown)
     this.interval = setInterval(() => this.game(canv, ctx), gameSpeed)
+    renderScoreDisplay(7)
   }
 
   componentWillUnmount () {
@@ -112,6 +123,8 @@ class SnakeGame extends Component {
 
     if (isWon(targetX, x, targetY, y)) {
       snakeLength++
+      score++
+      renderScoreDisplay(score)
       targetX = Math.floor(Math.random() * tileCount)
       targetY = Math.floor(Math.random() * tileCount)
     }
@@ -131,6 +144,7 @@ class SnakeGame extends Component {
   render () {
     return (
       <Container>
+        <div id='score-display' />
         <Tooltip />
         <PhoneImage
           src={`${baseUrl}/nostalgic_phone.png`}

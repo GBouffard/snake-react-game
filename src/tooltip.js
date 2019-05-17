@@ -78,8 +78,8 @@ const Tooltip = () => {
     <Fragment>
       <StyledTrigger>
         <radialGradient id='circleGradient'>
-          <stop offset='1%' stop-color='black' />
-          <stop offset='95%' stop-color='#333333' />
+          <stop offset='1%' stopColor='black' />
+          <stop offset='95%' stopColor='#333333' />
         </radialGradient>
 
         <StyledCircle fill="url('#circleGradient')" {...actionsProps} />
