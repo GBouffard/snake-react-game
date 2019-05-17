@@ -1,13 +1,13 @@
 {
   "main.css": "/snake-react-game/static/css/main.efc59c8e.chunk.css",
-  "main.js": "/snake-react-game/static/js/main.ee08a013.chunk.js",
-  "main.js.map": "/snake-react-game/static/js/main.ee08a013.chunk.js.map",
+  "main.js": "/snake-react-game/static/js/main.ff14d34e.chunk.js",
+  "main.js.map": "/snake-react-game/static/js/main.ff14d34e.chunk.js.map",
   "runtime~main.js": "/snake-react-game/static/js/runtime~main.9292d4d7.js",
   "runtime~main.js.map": "/snake-react-game/static/js/runtime~main.9292d4d7.js.map",
   "static/js/2.2fe8c1d9.chunk.js": "/snake-react-game/static/js/2.2fe8c1d9.chunk.js",
   "static/js/2.2fe8c1d9.chunk.js.map": "/snake-react-game/static/js/2.2fe8c1d9.chunk.js.map",
   "index.html": "/snake-react-game/index.html",
-  "precache-manifest.7773d1591adb52f0ae430de01a495307.js": "/snake-react-game/precache-manifest.7773d1591adb52f0ae430de01a495307.js",
+  "precache-manifest.94214960d265fb9e947c0c57c373483e.js": "/snake-react-game/precache-manifest.94214960d265fb9e947c0c57c373483e.js",
   "service-worker.js": "/snake-react-game/service-worker.js",
   "static/css/main.efc59c8e.chunk.css.map": "/snake-react-game/static/css/main.efc59c8e.chunk.css.map"
 }
