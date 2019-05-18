@@ -64,7 +64,7 @@ class SnakeGame extends Component {
     const ctx = canv.getContext('2d')
     document.addEventListener('keydown', this.onKeyDown)
     this.interval = setInterval(() => this.game(canv, ctx), gameSpeed)
-    renderScoreDisplay(7)
+    renderScoreDisplay(0)
   }
 
   componentWillUnmount () {

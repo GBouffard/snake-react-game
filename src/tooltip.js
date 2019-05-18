@@ -37,7 +37,7 @@ const StyledMessageContainer = styled.div`
   top: 15vw;
   width: 92vw;
   height: 75vh;
-  z-index: 999;
+  z-index: 900;
 
   &&::after {
     content: "";
